@@ -1,8 +1,12 @@
-version: "3.8"
-
 services:
-  nodeapp:
-    build: ./app
-    container_name: my-node-app
+  app:
+    build:
+      context: ./app      
+      dockerfile: Dockerfile
+    container_name: node_app
     ports:
       - "3000:3000"
+    volumes:
+      - ./app:/app
+      - /app/node_modules
+    restart: always

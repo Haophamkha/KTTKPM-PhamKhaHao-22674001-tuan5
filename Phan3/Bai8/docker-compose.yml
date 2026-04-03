@@ -1,0 +1,26 @@
+services:
+  web:
+    build: .
+    container_name: django_app
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./app:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+
+  worker:
+    build: .
+    container_name: celery_worker
+    command: celery -A myproject worker --loglevel=info
+    volumes:
+      - ./app:/app
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine
+    container_name: redis_celery
+    ports:
+      - "6379:6379"

@@ -1,0 +1,20 @@
+services:
+  app1:
+    build: ./app1
+    container_name: app1
+    ports:
+      - "5000:5000"
+    networks:
+      - my_network
+
+  app2:
+    build: ./app2
+    container_name: app2
+    ports:
+      - "5001:5001"
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge
